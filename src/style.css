@@ -1,4 +1,18 @@
 @import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
+body{
+  background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
+}
+.btn-round {
+    background-color: #d23f31;
+    border-radius: 999em;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    line-height: 1;
+    font-size: 36px;
+    position: relative;
+    cursor: pointer;
+}
 
 body,
 html,

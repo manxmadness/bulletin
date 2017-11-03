@@ -45,9 +45,6 @@ class App extends Component {
     return (
       <div className="note"
       style={this.style}>
-        <textarea ref="newText"
-                  defaultValue={this.props.children}>
-        </textarea>
         <button onClick={this.save}>SAVE</button>
       </div>
     );
@@ -58,8 +55,7 @@ class App extends Component {
       style={this.style}>
         <p>{this.props.children}</p>
         <span>
-        <button onClick={this.edit}>EDIT</button>
-        <button onClick={this.remove}>X</button>
+
         </span>
       </div>
     );
@@ -76,22 +72,13 @@ class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
-    notes:[]
+    notes:[],
+    editing:false
     }
   }
+
   componentWillMount() {
-    if (this.props.count) {
-      var url = `https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`
-      fetch(url)
-       .then(results => results.json())
-       .then(array => array[0])
-       .then(text => text.split('. '))
-       .then(array => array.forEach(
-         sentence => this.add(sentence)))
-      .catch(function(err) {
-        console.log("Didn't connect to the api", err)
-      })
-    }
+
   }
   nextId = () => {
     this.uniqueId = this.uniqueId || 0
@@ -102,7 +89,7 @@ class Board extends Component {
       ...this.state.notes,
       {
         id:this.nextId(),
-        note:text
+        note:this.refs.newText.value
       }
     ]
     this.setState({notes})
@@ -136,8 +123,13 @@ class Board extends Component {
   render() {
     return (
         <div className="board">
+        <div className="form-group">
+    <label htmlFor="exampleInputEmail1">Email address</label>
+    <input ref="newText" type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+
+  </div>
         {this.state.notes.map(this.eachNote)}
-        <button onClick={() => this.add('new note')}>+</button>
+        <button onClick={() => this.add()}>+</button>
         </div>
     )
   }
