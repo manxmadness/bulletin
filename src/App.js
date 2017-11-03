@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactDraggable from 'react-draggable';
 import './style.css';
 
 class App extends Component {
@@ -14,6 +15,15 @@ class App extends Component {
       right: this.randomBetween(0, window.innerWidth - 15, "px"),
       top: this.randomBetween(0, window.innerHeight - 15, "px"),
     }
+  }
+  componentDidUpdate() {
+    if (this.state.editing) {
+      this.refs.newText.focus()
+      this.refs.newText.select()
+    }
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.children !== nextProps.children || this.state !== nextState
   }
   randomBetween = (x, y, s) => {
     return (x + Math.ceil(Math.random() * (y-x)) + s)
@@ -35,7 +45,9 @@ class App extends Component {
     return (
       <div className="note"
       style={this.style}>
-        <textarea ref="newText"></textarea>
+        <textarea ref="newText"
+                  defaultValue={this.props.children}>
+        </textarea>
         <button onClick={this.save}>SAVE</button>
       </div>
     );
@@ -53,7 +65,10 @@ class App extends Component {
     );
   }
   render() {
-    return (this.state.editing) ? this.renderForm() : this.renderDisplay()
+    return (<ReactDraggable>
+      {(this.state.editing) ? this.renderForm() : this.renderDisplay()}
+      </ReactDraggable>
+    )
   }
 }
 
@@ -62,6 +77,20 @@ class Board extends Component {
     super(props)
     this.state = {
     notes:[]
+    }
+  }
+  componentWillMount() {
+    if (this.props.count) {
+      var url = `https://baconipsum.com/api/?type=all-meat&sentences=${this.props.count}`
+      fetch(url)
+       .then(results => results.json())
+       .then(array => array[0])
+       .then(text => text.split('. '))
+       .then(array => array.forEach(
+         sentence => this.add(sentence)))
+      .catch(function(err) {
+        console.log("Didn't connect to the api", err)
+      })
     }
   }
   nextId = () => {
