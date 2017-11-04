@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDraggable from 'react-draggable';
+import SearchInput, {createFilter} from 'react-search-input';
 import './style.css';
 
 class Note extends Component {
@@ -14,11 +15,9 @@ class Note extends Component {
       background: random_color
     }
   }
-
   randomBetween = (x, y, s) => {
     return (x + Math.ceil(Math.random() * (y-x)) + s)
   }
-
   renderDisplay() {
     return (
       <div className="note"
@@ -37,35 +36,33 @@ class Note extends Component {
     )
   }
 }
+
+const KEYS_TO_FILTERS = ['title', 'description','level']
+
 class Board extends Component {
   constructor(props) {
     super(props)
     this.state = {
     notes:[],
-    data: [],
+    searchTerm: '',
     aptBodyVisible: false
     }
+    this.searchUpdated = this.searchUpdated.bind(this)
   }
 
-  componentWillMount() {
-    return fetch('https://facebook.github.io/react-native/movies.json')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          data:responseJson.movies
-        })
-        console.log(this.state.data)
-      })
-    }
 
+  changeVisibility = () => {
+      this.setState({aptBodyVisible: !this.state.aptBodyVisible})
+  }
   nextId = () => {
     this.uniqueId = this.uniqueId || 0
     return this.uniqueId++
   }
-  changeVisibility = () => {
-      this.setState({aptBodyVisible: !this.state.aptBodyVisible})
+  handleSearch = () => {
+
   }
-  add = (text) => {
+
+  add = () => {
     var notes = [
       ...this.state.notes,
       {
@@ -76,13 +73,12 @@ class Board extends Component {
         level: this.refs.level.value
       }
     ]
+    this.refs.title.value=''
+    this.refs.description.value=''
+    this.refs.date.value=''
+    this.refs.level.value='Recreational'
     this.setState({notes})
     this.changeVisibility()
-  }
-
-  remove = (id) => {
-    var notes = this.state.notes.filter(note => note.id !== id)
-    this.setState({notes})
   }
   eachNote = (note) => {
     return (
@@ -95,43 +91,58 @@ class Board extends Component {
     )
   }
   render() {
+    var notes = this.state.notes
+    const filteredNotes = notes.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+
     return (
       <div className="board">
+        <form className="form-inline my-2 my-lg-0">
+          <div>
+            <SearchInput className="search-input" onChange={this.searchUpdated} />
+          </div>
+        </form>
         <button className="btn btn-circle btn-lg btn-info" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
         <div className="container popup rounded" style={ this.state.aptBodyVisible ? {display: 'block'} : {display: 'none'}}>
-        <div className="x"><i onClick={()=> this.changeVisibility()} className="pull-right fa fa-times" aria-hidden="true"></i></div>
+          <div className="x"><i onClick={()=> this.changeVisibility()} className="pull-right fa fa-times" aria-hidden="true"></i></div>
           <div className="inner-popup">
-          <div className="form-group">
-            <label htmlFor="textInput1">Activity</label>
-            <input ref="title" type="text" className="form-control" id="textInput1" aria-describedby="emailHelp" placeholder="Enter activity name" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="textInput2">Description</label>
-            <textarea ref="description" className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter description"></textarea>
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleFormControlTextarea1">Start Date</label>
-            <input type="date" className="form-control" id="aptDate" ref="date" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleFormControlSelect1">Level of play</label>
-            <select className="form-control" id="exampleFormControlSelect1" ref="level">
+            <div className="form-group">
+              <label htmlFor="textInput1">Activity</label>
+              <input ref="title" type="text" className="form-control" id="textInput1" aria-describedby="emailHelp" placeholder="Enter activity name" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="textInput2">Description</label>
+              <textarea ref="description" className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter description"></textarea>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">Start Date</label>
+              <input type="date" className="form-control" id="aptDate" ref="date" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlSelect1">Level of play</label>
+              <select className="form-control" id="exampleFormControlSelect1" ref="level">
           <option>Recreational</option>
           <option>Competitive</option>
         </select>
+            </div>
+            <button className="btn btn-md btn-dark btn-block" onClick={()=> this.add()}>Add</button>
           </div>
-          <button className="btn btn-md btn-dark btn-block" onClick={()=> this.add()}>Add</button>
-        </div>
         </div>
         <div className="notes">
-          { this.state.data.map( (dynamicData, key)=>
-          <Note key={key}>
-            { dynamicData.title }, { dynamicData.releaseYear }
+
+          {filteredNotes.map(note => { return (
+          <Note key={note.id} id={note.id}>
+            <div>{note.title}</div>
+            <div>{note.description}</div>
+            <div>{note.date}</div>
+            <div>{note.level}</div>
           </Note>
-          ) } {this.state.notes.map(this.eachNote)}
+          ) })}
         </div>
       </div>
     )
+  }
+  searchUpdated (term) {
+    this.setState({searchTerm: term})
   }
 }
 
