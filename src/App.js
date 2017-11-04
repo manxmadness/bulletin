@@ -37,6 +37,7 @@ class Note extends Component {
     )
   }
 }
+
 class Board extends Component {
   constructor(props) {
     super(props)
@@ -48,11 +49,11 @@ class Board extends Component {
   }
 
   componentWillMount() {
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    return fetch('./data.json')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          data:responseJson.movies
+          data:responseJson.movies,
         })
         console.log(this.state.data)
       })
@@ -80,6 +81,7 @@ class Board extends Component {
     this.changeVisibility()
   }
 
+
   remove = (id) => {
     var notes = this.state.notes.filter(note => note.id !== id)
     this.setState({notes})
@@ -94,9 +96,14 @@ class Board extends Component {
       </Note>
     )
   }
+
   render() {
     return (
       <div className="board">
+      <form className="form-inline my-2 my-lg-0">
+     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   </form>
         <button className="btn btn-circle btn-lg btn-info" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
         <div className="container popup rounded" style={ this.state.aptBodyVisible ? {display: 'block'} : {display: 'none'}}>
         <div className="x"><i onClick={()=> this.changeVisibility()} className="pull-right fa fa-times" aria-hidden="true"></i></div>
@@ -124,11 +131,7 @@ class Board extends Component {
         </div>
         </div>
         <div className="notes">
-          { this.state.data.map( (dynamicData, key)=>
-          <Note key={key}>
-            { dynamicData.title }, { dynamicData.releaseYear }
-          </Note>
-          ) } {this.state.notes.map(this.eachNote)}
+           {this.state.notes.map(this.eachNote)}
         </div>
       </div>
     )
