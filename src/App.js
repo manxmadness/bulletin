@@ -37,8 +37,11 @@ class Note extends Component {
   }
 }
 
+<<<<<<< HEAD
 const KEYS_TO_FILTERS = ['title', 'description','level', 'age']
 
+=======
+>>>>>>> 51cd7aad625f7b859430cf3eb2063f8bd1953fc8
 class Board extends Component {
   constructor(props) {
     super(props)
@@ -50,6 +53,19 @@ class Board extends Component {
     this.searchUpdated = this.searchUpdated.bind(this)
   }
 
+<<<<<<< HEAD
+=======
+  componentWillMount() {
+    return fetch('./data.json')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          data:responseJson.movies,
+        })
+        console.log(this.state.data)
+      })
+    }
+>>>>>>> 51cd7aad625f7b859430cf3eb2063f8bd1953fc8
 
   changeVisibility = () => {
       this.setState({aptBodyVisible: !this.state.aptBodyVisible})
@@ -84,6 +100,15 @@ class Board extends Component {
     this.setState({notes})
     this.changeVisibility()
   }
+<<<<<<< HEAD
+=======
+
+
+  remove = (id) => {
+    var notes = this.state.notes.filter(note => note.id !== id)
+    this.setState({notes})
+  }
+>>>>>>> 51cd7aad625f7b859430cf3eb2063f8bd1953fc8
   eachNote = (note) => {
     return (
       <Note key={note.id} id={note.id}>
@@ -96,18 +121,26 @@ class Board extends Component {
       </Note>
     )
   }
+
   render() {
     var notes = this.state.notes
     const filteredNotes = notes.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
 
     return (
       <div className="board">
+<<<<<<< HEAD
       <div className="container-fluid">
       <div className="row justify-content-end head">
 
         <form className="form-inline my-2 my-lg-0 search">
             <SearchInput placeholder="Filter" className="search-input" onChange={this.searchUpdated} />
         </form>
+=======
+      <form className="form-inline my-2 my-lg-0">
+     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+     <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+   </form>
+>>>>>>> 51cd7aad625f7b859430cf3eb2063f8bd1953fc8
         <button className="btn btn-circle btn-lg btn-info" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
       </div>
       </div>
@@ -149,6 +182,7 @@ class Board extends Component {
           </div>
         </div>
         <div className="notes">
+<<<<<<< HEAD
 
           {filteredNotes.map(note => { return (
           <Note key={note.id} id={note.id}>
@@ -160,6 +194,9 @@ class Board extends Component {
             <a href="">{note.contact}</a>
           </Note>
           ) })}
+=======
+           {this.state.notes.map(this.eachNote)}
+>>>>>>> 51cd7aad625f7b859430cf3eb2063f8bd1953fc8
         </div>
       </div>
     )
