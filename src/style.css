@@ -1,35 +1,35 @@
-@import url(http://fonts.googleapis.com/css?family=Shadows+Into+Light);
 body{
   background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
 }
-.search-input {
-  padding: 10px 10px;
-  height: 52px;
-  position: relative;
+.head {
+margin:15px 0;
 }
-
-.search-input::before {
-  content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAQJJREFUKBWVkr2uQUEUhf3ET6GRaC5aFRoJKrf1BKpb8SwqovYGXkCj00k0QnRKEYkILYobvpUYmeMMyVnJl7P3mjN7Zu9zwiGv2qRFyMMSRrAFp6JPN8XzBj+wgDkUYAg7WINTYdwpDECxrRLJHeq2accdkgm8bzTvNAg2EDOGeUYI1KNO1gkuzTA1g8T7ojbn4ONQWPuHPWgeHmnzCqoe15tkSNPgPEAn68oVcOmA2XMtGK9FoE/VhOTTVNExqLCGZnxCv2pYauEC6lF0oQxX6IOvb7yX9NPEQafan+aPXDdQC18LsO6Tip5BBY6gIQaSbnMCFRCBZRcIvFkbsvCr4AFGOCxQy+JdGQAAAABJRU5ErkJggg==');
-  display: block;
-  position: absolute;
-  width: 15px;
-  z-index: 3;
-  height: 15px;
-  font-size: 20px;
-  top: 11px;
-  left: 16px;
-  line-height: 32px;
-  opacity: 0.6;
+.search{
+  margin-right: 15px;
 }
-
 .search-input > input {
-  width: 100%;
-  font-size: 18px;
-  border: none;
-  line-height: 22px;
-  padding: 5px 10px 5px 25px;
-  height: 32px;
-  position: relative;
+  display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #4A4A4A;
+    background-color: rgba(255,255,255,.3);
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: white;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: white;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: white;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: white;
 }
 
 .search-input > input:focus {
@@ -39,7 +39,6 @@ body{
   z-index: 500;
   background: rgba(0,101,84,.9);
   color:#fff;
-
   position: absolute;
   left: 50%; /* positions img relative to container */
   top: 50%;  /* positions img relative to container */
@@ -53,7 +52,6 @@ body{
 }
 body,
 html,
-div.board,
 div#react-container {
   height: 100%;
   overflow: hidden;
@@ -64,15 +62,10 @@ body {
   padding: 0;
 }
 
-div.board {
-  width: 100%;
-  background: #eab92d;
-}
 
 div.note {
-  height: 150px;
-  width: 150px;
-  background-color: yellow;
+  height: 250px;
+  width: 250px;
   margin: 2px 0;
   position: absolute;
   cursor: -webkit-grab;
@@ -82,13 +75,6 @@ div.note {
 
 div.note:active {
   cursor: -webkit-grabbing;
-}
-
-div.note p {
-  margin: 0;
-  font-size: 22px;
-  padding: 5px;
-  font-family: "Shadows Into Light", Arial;
 }
 
 div.note:hover > span {
@@ -112,12 +98,7 @@ div.note > textarea {
   background: rgba(255, 255, 255, .5);
 }
 
-.board > button {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5em;
-}
+
 
 .btn-circle {
   width: 30px;

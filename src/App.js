@@ -37,7 +37,7 @@ class Note extends Component {
   }
 }
 
-const KEYS_TO_FILTERS = ['title', 'description','level']
+const KEYS_TO_FILTERS = ['title', 'description','level', 'age']
 
 class Board extends Component {
   constructor(props) {
@@ -70,13 +70,17 @@ class Board extends Component {
         title:this.refs.title.value,
         description:this.refs.description.value,
         date: this.refs.date.value,
-        level: this.refs.level.value
+        age: this.refs.age.value,
+        level: this.refs.level.value,
+        contact: this.refs.contact.value
       }
     ]
     this.refs.title.value=''
     this.refs.description.value=''
     this.refs.date.value=''
+    this.refs.level.value='Child'
     this.refs.level.value='Recreational'
+    this.refs.contact.value=''
     this.setState({notes})
     this.changeVisibility()
   }
@@ -86,7 +90,9 @@ class Board extends Component {
       <div>{note.title}</div>
       <div>{note.description}</div>
       <div>{note.date}</div>
+      <div>{note.age}</div>
       <div>{note.level}</div>
+      <a href="">{note.contact}</a>
       </Note>
     )
   }
@@ -96,12 +102,15 @@ class Board extends Component {
 
     return (
       <div className="board">
-        <form className="form-inline my-2 my-lg-0">
-          <div>
-            <SearchInput className="search-input" onChange={this.searchUpdated} />
-          </div>
+      <div className="container-fluid">
+      <div className="row justify-content-end head">
+
+        <form className="form-inline my-2 my-lg-0 search">
+            <SearchInput placeholder="Filter" className="search-input" onChange={this.searchUpdated} />
         </form>
         <button className="btn btn-circle btn-lg btn-info" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
+      </div>
+      </div>
         <div className="container popup rounded" style={ this.state.aptBodyVisible ? {display: 'block'} : {display: 'none'}}>
           <div className="x"><i onClick={()=> this.changeVisibility()} className="pull-right fa fa-times" aria-hidden="true"></i></div>
           <div className="inner-popup">
@@ -118,11 +127,23 @@ class Board extends Component {
               <input type="date" className="form-control" id="aptDate" ref="date" />
             </div>
             <div className="form-group">
-              <label htmlFor="exampleFormControlSelect1">Level of play</label>
-              <select className="form-control" id="exampleFormControlSelect1" ref="level">
-          <option>Recreational</option>
-          <option>Competitive</option>
-        </select>
+              <label htmlFor="exampleFormControlSelect1">Age group</label>
+              <select className="form-control" id="exampleFormControlSelect1" ref="age">
+                <option>Child</option>
+                <option>Teen</option>
+                <option>Adult</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlSelect2">Level of play</label>
+              <select className="form-control" id="exampleFormControlSelect2" ref="level">
+                <option>Recreational</option>
+                <option>Competitive</option>
+              </select>
+            </div>
+            <div className="form-group">
+            <label htmlFor="textInput2">Contact information</label>
+            <input ref="contact" type="text" className="form-control" id="textInput2" aria-describedby="emailHelp" placeholder="Contact" />
             </div>
             <button className="btn btn-md btn-dark btn-block" onClick={()=> this.add()}>Add</button>
           </div>
@@ -134,7 +155,9 @@ class Board extends Component {
             <div>{note.title}</div>
             <div>{note.description}</div>
             <div>{note.date}</div>
+            <div>{note.age}</div>
             <div>{note.level}</div>
+            <a href="">{note.contact}</a>
           </Note>
           ) })}
         </div>
