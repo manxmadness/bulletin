@@ -2,18 +2,22 @@
 body{
   background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
 }
-.btn-round {
-    background-color: #d23f31;
-    border-radius: 999em;
-    width: 56px;
-    height: 56px;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-    line-height: 1;
-    font-size: 36px;
-    position: relative;
-    cursor: pointer;
-}
+.popup {
+  z-index: 500;
+  background: rgba(0,101,84,.9);
+  color:#fff;
 
+  position: absolute;
+  left: 50%; /* positions img relative to container */
+  top: 50%;  /* positions img relative to container */
+  transform: translate(-50%, -70%);
+}
+.inner-popup {
+  padding:20px 30px 30px 30px;
+}
+.x {
+  padding:10px 0 0 0;
+}
 body,
 html,
 div.board,
@@ -28,7 +32,6 @@ body {
 }
 
 div.board {
-  background-color: 'brown';
   width: 100%;
   background: #eab92d;
 }
@@ -81,4 +84,30 @@ div.note > textarea {
   top: 10px;
   right: 10px;
   font-size: 1.5em;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
 }
