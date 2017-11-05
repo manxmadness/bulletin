@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import logo from './logo.svg';
 import PropTypes from 'prop-types';
 import ReactDraggable from 'react-draggable';
 import SearchInput, {createFilter} from 'react-search-input';
 import './style.css';
 
 class Note extends Component {
-
   componentWillMount() {
-    var colors = ['#FCBCB8', '#C7EAE4', '#A7E8BD', '#FFD972'];
+    var colors = ['#549477', '#14745f', '#6d6e71'];
     var random_color = colors[Math.floor(Math.random() * colors.length)];
     this.style = {
       right: this.randomBetween(0, window.innerWidth - 15, "px"),
@@ -102,9 +102,10 @@ class Board extends Component {
 
     return (
       <div className="board">
-      <div className="container-fluid">
-      <div className="row justify-content-end head">
 
+      <div className="container-fluid">
+      <div className="row justify-content-end align-items-center head">
+        <img className="logo" src={logo} alt="logo" width="200"/>
         <form className="form-inline my-2 my-lg-0 search">
             <SearchInput placeholder="Filter" className="search-input" onChange={this.searchUpdated} />
         </form>

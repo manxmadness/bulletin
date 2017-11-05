@@ -1,7 +1,12 @@
 body{
   background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
 }
+.logo {
+  position: absolute;
+  left:0;
+}
 .head {
+  padding-top:15px;
 margin:15px 0;
 }
 .search{
@@ -42,7 +47,7 @@ margin:15px 0;
   position: absolute;
   left: 50%; /* positions img relative to container */
   top: 50%;  /* positions img relative to container */
-  transform: translate(-50%, -70%);
+  transform: translate(-50%, -50%);
 }
 .inner-popup {
   padding:20px 30px 30px 30px;
