@@ -12,6 +12,17 @@ body{
   background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
   font-family: avenir;
 }
+
+#the-huddle{
+  /*background: url('./the-huddle.png') no-repeat fixed center;*/
+  position: fixed;
+  right:0;
+  bottom:0;
+  padding:10px;
+  /*width:90px;
+  height:485px;*/
+}
+
 .logo {
   position: absolute;
   left:0;

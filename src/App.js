@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import huddle from './the-huddle.png';
 import PropTypes from 'prop-types';
 import ReactDraggable from 'react-draggable';
 import SearchInput, {createFilter} from 'react-search-input';
@@ -114,6 +115,7 @@ class Board extends Component {
         </form>
         <button className="btn btn-circle btn-lg btn-light" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
       </div>
+      <img id="the-huddle" src={huddle} alt="the-huddle" width="90"/>
       </div>
         <div className="container popup rounded" style={ this.state.aptBodyVisible ? {display: 'block'} : {display: 'none'}}>
           <div className="x"><i onClick={()=> this.changeVisibility()} className="pull-right fa fa-times" aria-hidden="true"></i></div>
