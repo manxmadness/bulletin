@@ -1,5 +1,16 @@
+
+@font-face {
+    font-family: 'rusticoregular';
+    src: url('rustico-regular-webfont.woff2') format('woff2'),
+         url('rustico-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 body{
   background: url('./fzm-seamless.corkboard.texture-01-[500x500].jpg') repeat fixed center;
+  font-family: avenir;
 }
 .logo {
   position: absolute;
@@ -67,15 +78,22 @@ body {
   padding: 0;
 }
 
-
+div.note h1 {
+  font-family: rusticoregular;
+}
 div.note {
-  height: 250px;
-  width: 250px;
+  height: 275px;
+  width: 275px;
   margin: 2px 0;
   position: absolute;
   cursor: -webkit-grab;
   box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, .2);
   overflow: hidden;
+  color:white;
+}
+
+div.note ul {
+    list-style-image: url('bullet.svg');
 }
 
 div.note:active {

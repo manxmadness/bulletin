@@ -12,7 +12,8 @@ class Note extends Component {
     this.style = {
       right: this.randomBetween(0, window.innerWidth - 15, "px"),
       top: this.randomBetween(0, window.innerHeight - 15, "px"),
-      background: random_color
+      background: random_color,
+      padding:10
     }
   }
   randomBetween = (x, y, s) => {
@@ -87,12 +88,14 @@ class Board extends Component {
   eachNote = (note) => {
     return (
       <Note key={note.id} id={note.id}>
-      <div>{note.title}</div>
-      <div>{note.description}</div>
-      <div>{note.date}</div>
-      <div>{note.age}</div>
-      <div>{note.level}</div>
-      <a href="">{note.contact}</a>
+      <h1>{note.title}</h1>
+      <ul>
+      <li>{note.description}</li>
+      <li>{note.date}</li>
+      <li>{note.age}</li>
+      <li>{note.level}</li>
+      <li><a href="">{note.contact}</a></li>
+      </ul>
       </Note>
     )
   }
@@ -109,7 +112,7 @@ class Board extends Component {
         <form className="form-inline my-2 my-lg-0 search">
             <SearchInput placeholder="Filter" className="search-input" onChange={this.searchUpdated} />
         </form>
-        <button className="btn btn-circle btn-lg btn-info" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
+        <button className="btn btn-circle btn-lg btn-light" onClick={()=> this.changeVisibility()}><i className="fa fa-thumb-tack" aria-hidden="true"></i></button>
       </div>
       </div>
         <div className="container popup rounded" style={ this.state.aptBodyVisible ? {display: 'block'} : {display: 'none'}}>
@@ -152,14 +155,16 @@ class Board extends Component {
         <div className="notes">
 
           {filteredNotes.map(note => { return (
-          <Note key={note.id} id={note.id}>
-            <div>{note.title}</div>
-            <div>{note.description}</div>
-            <div>{note.date}</div>
-            <div>{note.age}</div>
-            <div>{note.level}</div>
-            <a href="">{note.contact}</a>
-          </Note>
+            <Note key={note.id} id={note.id}>
+            <h1>{note.title}</h1>
+            <ul>
+            <li>{note.description}</li>
+            <li>{note.date}</li>
+            <li>{note.age}</li>
+            <li>{note.level}</li>
+            <li><a href="">{note.contact}</a></li>
+            </ul>
+            </Note>
           ) })}
         </div>
       </div>
